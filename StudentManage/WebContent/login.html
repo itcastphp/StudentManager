@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+		username:<input type="text" id="username" /> <br>
+		password:<input	type="password" id="password" /><br>
+		<input type="button" id="btn" value="登录"/>
+</body>
+
+<script type="text/javascript">
+	document.getElementById("btn").onclick = function() {
+		var xhr = new XMLHttpRequest();
+
+		//获取用户名和密码
+		var username = document.getElementById("username");
+		var password = document.getElementById("password");
+		
+		
+		xhr.onreadystatechange = function() {
+			if (xhr.status == 200 && xhr.readyState == 4) {
+
+				
+				//关闭当前页面
+				window.close();
+				//打开一个新的页面
+				window.open("index.html");
+				
+			}
+		}
+
+		//打开通道
+		xhr.open("post", "/StudentManage/oginAction?username="+username.value+"&password="+password.value);
+
+		//发送请求
+		xhr.send();
+	}
+</script>
+</html>

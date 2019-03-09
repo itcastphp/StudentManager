@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			table, th, td, tr {
+				border: 1px solid black;
+				border-collapse: collapse;
+				}
+		</style>
+		<script type="text/javascript">
+			onload=function(){
+				var xhr=new XMLHttpRequest();
+				xhr.onreadystatechange=function(){
+					if(xhr.status==200&&xhr.readyState==4){
+						var studentsStr=xhr.responseText;
+						var students = JSON.parse(studentsStr);
+						document.getElementsByTagName("thead")[0].innerHTML="<th>学号</th><th>姓名</th>"+
+						"<th>年龄</th><th>性别</th><th>操作</th>";
+						var tbody=document.getElementsByTagName("tbody")[0];
+						for(var i=0;i<students.length;i++){
+							var tr=	document.createElement("tr");
+							tr.innerHTML="<td>"+students[i].sid+"</td><td>"+
+							students[i].sname+"</td><td>"+students[i].sage+"</td><td>"+students[i].ssex+"</td><td>"+"<a href='#'>删除</a></td>";
+							tbody.appendChild(tr);
+						}
+						
+					}
+				}
+				xhr.open("get","/StudentManage/selectStudentAll");
+				xhr.send();
+			}
+		</script>
+	</head>
+<body>
+	<table>
+		<thead>
+	
+		</thead>
+		<tbody>
+			
+		</tbody>
+	</table>
+</body>
+</html>

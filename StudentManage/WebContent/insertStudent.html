@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+		<head>
+		<meta charset="utf-8">
+		<title></title>
+		<!--字体图标-->
+		<link href="http://cdn.javaex.cn/javaex/pc/css/icomoon.css" rel="stylesheet" />
+		<!--动画-->
+		<link href="http://cdn.javaex.cn/javaex/pc/css/animate.css" rel="stylesheet" />
+		<!--骨架样式-->
+		<link href="http://cdn.javaex.cn/javaex/pc/css/common.css" rel="stylesheet" />
+		<!--皮肤（缇娜）-->
+		<link href="http://cdn.javaex.cn/javaex/pc/css/skin/tina.css" rel="stylesheet" />
+		<!--jquery，不可修改版本-->
+		<script src="http://cdn.javaex.cn/javaex/pc/lib/jquery-1.7.2.min.js"></script>
+		<!--全局动态修改-->
+		<script src="http://cdn.javaex.cn/javaex/pc/js/common.js"></script>
+		<!--核心组件-->
+		<script src="http://cdn.javaex.cn/javaex/pc/js/javaex.min.js"></script>
+		<!--表单验证-->
+		<script src="http://cdn.javaex.cn/javaex/pc/js/javaex-formVerify.js"></script>
+	</head>
+	<body>
+		<div class="list-content">
+			学号:<input type="text" class="text radius-5" id="sid"/><br>
+			姓名:<input type="text" class="text radius-5" id="sname"/><br>
+			性别:&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="sex" value="男" />男&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="radio" name="sex" value="女"/>女<br />
+			年龄:<input type="text" class="text radius-5" id="sage"/><br>
+			<button class="button blue radius-5" id="addStudent">添加学生</button>
+		</div>
+		<script type="text/javascript">
+			document.getElementById("addStudent").onclick=function(){
+				var inputs=document.getElementsByTagName("input");
+				var sexs=document.getElementsByName("sex");
+				var sex;
+				for(var i=0;i<sexs.length;i++){
+					if(sexs[i].checked){
+						sex="女";
+					}else{
+						sex="男";
+					}
+				}
+				alert(sex);
+				var studentObj={"sid":inputs[0].value,"sname":inputs[1].value,"ssex":sex,"sage":inputs[4].value};
+				var studentStr=JSON.stringify(studentObj);
+				var xhr= new XMLHttpRequest();
+				if(xhr.status==200&&xhr.readyState==4){
+					 javaex.message({
+							content : "添加成功",
+							type : "success"
+						}); 
+					/* window.close();
+					window.open("index3.html"); */
+				}
+				xhr.open("get",encodeURI("/StudentManage/addStudentServlet?student="+studentStr));
+				xhr.send();
+			}
+		</script>
+	</body>
+</html>
